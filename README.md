@@ -1,7 +1,7 @@
 # Bounds on the Dynamic Causal Effects of Monetary Policy
 
 Code, data and LaTeX source for my Columbia B.A. honors thesis in economics (advisor: Prof. José Luis Montiel Olea),
-**revised edition, September 2026**. The paper is `paper/main.pdf`.
+**revised edition, 2026**. The paper is `paper/main.pdf`.
 
 **Idea.** Before every FOMC meeting the Bluebook lists the policy alternatives on the table. In 133 meetings
 (1989–2006) the Committee never chose an action that was not on its menu, so the overlap assumption behind
