@@ -1,0 +1,14 @@
+{
+  "n_meetings": 133,
+  "bootstrap_draws": 499,
+  "llf": {
+    "Macro": -109.95,
+    "+ FFF": -91.41,
+    "+ Menus": -72.61,
+    "Greenbook": -52.65
+  },
+  "failed_draws_main": 0,
+  "failed_draws_alt": 0,
+  "min_p_observed_decision": 0.0539,
+  "share_p_observed_below_0.05": 0.0
+}

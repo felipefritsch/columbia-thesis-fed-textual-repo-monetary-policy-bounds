@@ -1,0 +1,99 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\IfFileExists{lmodern.sty}{\usepackage[T1]{fontenc}\usepackage{lmodern}}{}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{enumitem}
+\usepackage[authoryear,round]{natbib}
+\usepackage{xcolor}
+\usepackage[section]{placeins}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+
+\graphicspath{{../results/figures/}}
+\newcommand{\tablefile}[1]{\input{../results/tables/#1}}
+
+\newtheorem{assumption}{Assumption}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\DeclareMathOperator{\E}{\mathbb{E}}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\indep}{\perp\!\!\!\perp}
+\newcommand{\1}{\mathbf{1}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cN}{\mathcal{N}}
+
+\captionsetup{font=small,labelfont=bf}
+\setlength{\parskip}{0.35em}
+
+\begin{document}
+
+\begin{titlepage}
+  \centering
+  \vspace*{2.5cm}
+  {\LARGE\bfseries Bounds on the Dynamic Causal Effects\\[4pt] of Monetary Policy\par}
+  \vspace{0.6cm}
+  {\large An Analysis Using the Federal Reserve's Textual Repository\par}
+  \vspace{2cm}
+  {\Large Felipe Pombal Fritsch\par}
+  \vspace{0.6cm}
+  {\large Advisor: Prof.\ Jos\'e Luis Montiel Olea\par}
+  \vfill
+  A thesis presented for the degree of Bachelor of Arts\\
+  Department of Economics, Columbia University\\[1em]
+  Submitted May 2020 \quad$\cdot$\quad Revised edition, September 2026
+\end{titlepage}
+
+\begin{abstract}
+\noindent
+Semiparametric estimates of the effects of monetary policy treat each FOMC meeting as a unit that selects into a
+policy choice, and require every choice to be possible at every point of the covariate space (overlap). Using the
+policy alternatives that Federal Reserve staff lay out in the Bluebook before each meeting, I show that overlap
+fails in a specific, observable way: over 133 meetings from 1989 to 2006 the Committee never took an action that
+was absent from its menu. I build a propensity-score model in which the menu imposes these structural zeros,
+derive the sharp identified set for the average dynamic effect of a rate increase or decrease when some menus
+exclude the action or the status quo, and propose a one-parameter relaxation that trades the worst case for an
+assumption on effect heterogeneity across menus. The menu constraint alone improves the fit of the policy
+model as much as adding market expectations. On the empirical side, worst-case bounds are uninformative, and the
+effects that are point-identified on the meetings with genuine overlap have the wrong sign for industrial
+production and unemployment even after conditioning on the Greenbook forecasts, although the forecasts do remove
+the price puzzle. Handling overlap does not rescue selection-on-observables in this setting: the binding problem is
+unconfoundedness.
+\end{abstract}
+
+\vspace{1em}
+\noindent\fbox{\parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule}{\small
+\textbf{Note on this edition.} This revision replaces the version submitted in May 2020. The conceptual idea is
+unchanged; the estimation was revised and the code rebuilt from the raw data. The main changes are the propensity
+score, the calibration of the outcome bounds, the treatment of the point estimates, and the addition of inference.
+Several conclusions change as a result. Appendix~\ref{app:revision} compares the two versions. All numbers here are
+produced by the pipeline in the accompanying repository.}}
+
+\newpage
+\tableofcontents
+\newpage
+
+\input{sections/introduction}
+\input{sections/data}
+\input{sections/framework}
+\input{sections/estimation}
+\input{sections/results}
+\input{sections/conclusion}
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\appendix
+\input{sections/appendix}
+
+\end{document}

@@ -1,0 +1,74 @@
+\section{Data: Policy Menus from the Bluebooks}\label{sec:data}
+
+\subsection{How the FOMC prepares a decision}
+
+The Federal Open Market Committee (FOMC) meets eight times a year at scheduled meetings and occasionally by
+conference call. Each scheduled meeting is preceded by a structured set of staff documents
+\citep{danker2005}. About two weeks before the meeting the \emph{Beige Book} summarises anecdotal evidence from
+the twelve Reserve Bank districts. About a week before, the \emph{Greenbook} gives the Board staff's forecast for
+the domestic and international economy. On the Friday before the meeting the \emph{Bluebook} sets out the policy
+alternatives for the Committee's consideration, usually labelled A, B and C, each with a proposed federal funds
+rate target and a rationale. The meeting agenda then includes a discussion of these alternatives before the
+Committee votes. The format of these documents has changed over time: documents have been introduced, merged and
+retired since the corpus begins in 1936. Over the sample used here the sequence above is stable.
+
+Two of these documents enter the analysis. The Bluebook defines the \emph{menu} of actions the Committee
+considered, which is the object of this thesis, and the Greenbook provides the staff forecasts used as
+covariates in Section~\ref{sec:estimation}.
+
+\subsection{Extracting the menus}
+
+The Bluebooks are published with a five-year lag on the Board's website as HTML and PDF files. Building on the
+FOMC text-analysis project of Montiel Olea, Giesecke, Chitale and Frermann, the documents were converted to raw
+text and every sentence mentioning a policy alternative was extracted with the regular expression
+\begin{center}
+\small\verb/([^.]*)(alternatives?\s+[a-e])(\.|[^a-z]\.|[^a-z][^\.]+\.)/
+\end{center}
+which captures a sentence containing ``alternative'' followed by a letter. The extracted sentences were then
+read and classified by hand, because the same target is sometimes described in different ways under different
+rationales. For each alternative I record the proposed change in the federal funds rate target, and classify it
+as easing ($E$), unchanged ($U$) or tightening ($T$).
+
+The Committee's actual decision is taken from the target changes in the replication files of
+\citet{angrist2018}. The sample runs from August 1989 to January 2006, the Greenspan chairmanship after the
+Committee had begun to target the federal funds rate explicitly \citep{romer2004}. It contains 133 scheduled
+meetings with a Bluebook menu. Target changes of 25, 50 and 75 basis points are pooled into the three categories
+because 50 and 75 basis point moves are too rare to estimate separately.
+
+\subsection{What the menus show}
+
+Table~\ref{tab:menus} cross-tabulates the menu offered with the decision taken. Two facts stand out. First, the
+decision is \emph{always} on the menu: no meeting in the sample took an action that the Bluebook did not propose.
+The zeros in Table~\ref{tab:menus} are therefore structural, and they are observed rather than inferred. Second, most
+menus are restricted: 87 of 133 meetings (65\%) were offered a menu without easing or without tightening, and only
+46 had all three options. The full menu is also where the Committee was least likely to move. Only one of the 27
+tightenings in the sample came from a full menu.
+
+\begin{table}[!htbp]
+  \centering
+  \caption{Bluebook menus and FOMC decisions, August 1989 -- January 2006}\label{tab:menus}
+  \tablefile{menus.tex}
+  \par\medskip
+  \begin{minipage}{0.8\linewidth}\footnotesize
+  \emph{Notes:} Scheduled FOMC meetings. Rows give the set of alternatives proposed in the Bluebook ($E$ ease,
+  $U$ unchanged, $T$ tighten); columns give the decision. Every decision lies in the menu.
+  \end{minipage}
+\end{table}
+
+Figure~\ref{fig:state} shows where in the macroeconomic state space these restrictions bind. Panel (a) plots
+lagged inflation and industrial-production growth at each meeting, marking the meetings at which the Committee
+tightened or eased. Panel (b) marks instead the meetings whose menu \emph{excluded} easing or tightening. Menus
+without easing are concentrated where output growth is above its sample average (88\% of them), and menus without
+tightening where it is below (78\%). The same pattern appears in the decisions themselves, but the menu shows it
+without relying on a fitted model: in about half of the meetings with below-average output growth (29 of 56) tightening
+was not even proposed, and the Committee tightened at only three of them. This is
+exactly the kind of covariate region in which a propensity score must be zero, and it is why a standard IPW
+estimator, which divides by the propensity score, is not available there.
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=\linewidth]{state_space.pdf}
+  \caption{Policy decisions and policy menus in the inflation--output space. Each point is a scheduled FOMC
+  meeting; axes show year-on-year PCE inflation and industrial-production growth in the previous month, as
+  deviations from their 1989--2006 means. Grey points are meetings not in the highlighted group.}\label{fig:state}
+\end{figure}

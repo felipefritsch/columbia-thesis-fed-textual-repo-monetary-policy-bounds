@@ -1,0 +1,22 @@
+[project]
+name = "mpbounds"
+version = "2.0.0"
+description = "Bounds on the dynamic causal effects of monetary policy when overlap fails through the FOMC's policy menu"
+authors = [{ name = "Felipe Pombal Fritsch" }]
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.24", "pandas>=2.0", "scipy>=1.10", "statsmodels>=0.14", "matplotlib>=3.7", "xlrd>=2.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+filterwarnings = ["ignore::RuntimeWarning", "ignore::FutureWarning"]

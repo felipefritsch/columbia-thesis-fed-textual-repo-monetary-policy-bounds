@@ -1,0 +1,55 @@
+\section{Introduction}\label{sec:intro}
+
+Measuring the effect of monetary policy on the economy is one of the central problems of empirical
+macroeconomics. The difficulty is familiar. Policy responds to the state of the economy, which in turn responds to
+policy, and the econometrician sees a few hundred monthly observations of this feedback loop. The dominant
+response has been to impose structure, through structural vector autoregressions \citep{sims1980} or local
+projections \citep{jorda2005}, and with it linearity in the effect of policy.
+
+A second approach, developed by \citet{angrist2011} and \citet{angrist2018}, borrows from microeconometric policy
+evaluation. Each FOMC meeting is a unit that selects into a policy choice (ease, hold, or tighten), and the
+effect of that choice is recovered by inverse probability weighting (IPW) on a propensity score for the
+Committee's decision. The approach is semiparametric and allows effects to be nonlinear and asymmetric. Like all
+selection-on-observables designs, however, it rests on two assumptions. \emph{Unconfoundedness} requires that,
+given the observed covariates, the decision be unrelated to the future path the economy would take under each
+alternative. \emph{Overlap} requires every decision to have positive probability at every value of the covariates.
+
+This thesis starts from the second assumption. Some policy actions are simply not on the table in some states
+of the economy. The Federal Reserve's own documents record which: before every meeting, Board staff circulate the
+Bluebook, which lists the policy alternatives the Committee will consider. I use these \emph{policy menus},
+extracted from the Bluebooks by text analysis, to make three contributions.
+\begin{enumerate}[leftmargin=*,itemsep=2pt]
+  \item \textbf{Structural non-overlap is observable.} In 133 scheduled meetings between August 1989 and
+  January 2006 the FOMC never chose an action that was not on its Bluebook menu, and two thirds of the menus exclude
+  either easing or tightening. The failure of overlap is not a feature of a fitted model. It is recorded in
+  the Committee's briefing documents.
+  \item \textbf{Menu-constrained propensity score and sharp bounds.} I estimate the decision model as an
+  ordered probit renormalised over the menu, so that the propensity score is exactly zero for an action that is
+  not on the menu. I then derive the sharp identified set for the average effect of a rate increase or decrease,
+  exploiting the fact that in a menu that contains the status quo but not the action (or the reverse) half of
+  the comparison is still identified. A one-parameter relaxation bounds how far effects in the non-overlap menus
+  may differ from the effect in the overlap region, and yields a breakdown value for each estimate's sign.
+  \item \textbf{Evidence.} Imposing the menus raises the log likelihood of the decision model by almost 19 points
+  without any additional parameters. However, the effects that are point-identified on the overlap region imply that
+  rate increases are followed by higher industrial production and lower unemployment, even when the propensity
+  score conditions on the Greenbook forecasts that \citet{romer2004} use to purge policy of its predictable
+  component. Worst-case bounds that make no assumption on the missing menus are wide and contain zero.
+\end{enumerate}
+
+The negative result is informative. It shows that correcting the overlap problem, which is real and
+documented, does not deliver credible effects of monetary policy under selection on observables in this sample:
+what remains is a failure of unconfoundedness, most plausibly because the Committee acts on information about the
+future economy that neither macro aggregates, market expectations nor staff forecasts fully capture. The bounds
+framework makes this transparent, because it separates what the data identify from what must be assumed.
+
+\paragraph{Related literature.} The potential-outcomes approach to monetary policy follows \citet{angrist2011},
+\citet{angrist2018} and \citet{rambachan2019}. The consequences of limited overlap for IPW are studied by
+\citet{khan2010}, \citet{crump2009}, \citet{ma2020} and, with many covariates, \citet{damour2021}; I study the
+case in which overlap fails exactly and the region of failure is observed. The bounds follow \citet{manski1990,manski2003},
+and inference follows \citet{imbens2004}. The text data build on the FOMC text-analysis project of Montiel Olea and
+coauthors and relate to \citet{hansen2018}. The use of staff forecasts to control for the Federal Reserve's
+information set follows \citet{romer2004}.
+
+\paragraph{Outline.} Section~\ref{sec:data} describes the FOMC's decision process and the construction of the
+policy menus. Section~\ref{sec:framework} sets out the framework and derives the bounds. Section~\ref{sec:estimation}
+covers estimation and inference, and Section~\ref{sec:results} reports results. Section~\ref{sec:conclusion} concludes.

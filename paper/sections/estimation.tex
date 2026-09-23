@@ -1,0 +1,91 @@
+\section{Estimation and Inference}\label{sec:estimation}
+
+\subsection{A menu-constrained propensity score}
+
+Following \citet{angrist2011} and \citet{angrist2018}, the Committee's decision is modelled as an ordered probit
+in a latent policy index $Z'\beta$ with cutoffs $c_1<c_2$, which gives unconstrained cell probabilities
+$\tilde p_{-1}(z)=\Phi(c_1-z'\beta)$, $\tilde p_0(z)=\Phi(c_2-z'\beta)-\Phi(c_1-z'\beta)$ and
+$\tilde p_1(z)=1-\Phi(c_2-z'\beta)$. To impose Assumption~\ref{as:menu} exactly, the probabilities are renormalised
+over the menu:
+\begin{equation}\label{eq:pscore}
+  p_d(x,z)=\frac{\tilde p_d(z)\,\1\{d\in x\}}{\sum_{d'\in x}\tilde p_{d'}(z)} .
+\end{equation}
+This is the probability of choosing $d$ from an ordered probit whose outcome is known to lie in $x$. It is zero
+exactly off the menu, it reduces to the ordered probit when $x=\cD$, and it is degenerate at one in the
+single-option menus, which therefore do not enter the likelihood. The parameters $(\beta,c_1,c_2)$ are estimated
+by maximum likelihood; standard errors come from the inverse Hessian, and average marginal effects use the
+delta method.
+
+The 2020 version entered the menus as dummy variables in an unconstrained ordered probit, which keeps the
+probabilities off the menu small but positive; the renormalisation makes them exactly zero, as the bounds assume.
+
+\paragraph{Covariates.} I consider two information sets. The \emph{macro} set follows \citet{angrist2018}: the
+surprise component of federal funds futures prices, two lags of monthly PCE inflation, two lags of the change in
+the unemployment rate, and two lags of year-on-year industrial-production growth. (The 2020 version used the
+contemporaneous level of the IP index; growth rates lagged to the meeting date are used here instead.) The
+\emph{Greenbook} set, which is the main specification, replaces the macro variables with the staff forecasts the
+Committee had in hand at the meeting, as in \citet{romer2004}: current- and next-quarter forecasts of real GDP
+growth and GDP-deflator inflation, and the current-quarter unemployment forecast, together with the futures
+surprise. Each meeting is matched to the most recent Greenbook released before it.
+
+Table~\ref{tab:pscore} reports average marginal effects on the probability of a rate increase. Columns (1)--(2)
+reproduce the progression of the 2020 thesis on the meeting sample: adding the futures surprise raises the log
+likelihood from $-110.0$ to $-91.4$. Column (3) imposes the menus through \eqref{eq:pscore}, with the same covariates
+and no additional parameter, and the log likelihood rises by a similar amount again, to $-72.6$. The text of the
+Bluebook carries as much information about the decision as market expectations do. Column (4), the main
+specification, uses the Greenbook information set and fits best ($-52.7$). Higher current-quarter forecasts of
+growth and inflation raise the probability of a hike. The next-quarter inflation forecast enters negatively once the
+current-quarter forecast is held fixed; the two are correlated (0.63), so their separate coefficients are less
+sharply determined than their sum. The futures surprise remains the strongest single predictor.
+
+\begin{table}[!htbp]
+  \centering
+  \caption{Propensity-score models: average marginal effects on $\Prob(D_t=1)$}\label{tab:pscore}
+  \small
+  \tablefile{pscore.tex}
+  \par\medskip
+  \begin{minipage}{0.92\linewidth}\footnotesize
+  \emph{Notes:} Ordered probit for the FOMC decision at 133 scheduled meetings, August 1989 -- January 2006.
+  Columns (3)--(4) renormalise the probabilities over the Bluebook menu, equation~\eqref{eq:pscore}. Delta-method
+  standard errors in parentheses. $^{*}$, $^{**}$, $^{***}$: significant at 10\%, 5\%, 1\%.
+  GB = Greenbook forecast; $q_0$, $q_1$ = current and next quarter.
+  \end{minipage}
+\end{table}
+
+\subsection{Estimating the bounds}
+
+Given fitted scores $\hat p$, the conditional means in \eqref{eq:ipw} are estimated with normalised (H\'ajek)
+inverse probability weights within each menu,
+\[
+\hat\mu_a(x)=\frac{\sum_{t:X_t=x}\1\{D_t=a\}\,Y_{t,h}/\hat p_a(W_t)}{\sum_{t:X_t=x}\1\{D_t=a\}/\hat p_a(W_t)},
+\]
+and $\pi_x$ by the sample share of meetings with menu $x$. Plugging these into Proposition~\ref{prop:bounds} gives
+$\hat L_d$, $\hat U_d$ and $\hat\theta_d^{\cA}$. Normalised weights are bounded by the observed outcomes and are
+less sensitive to small scores than the unnormalised estimator. In the main specification the smallest estimated
+probability of an observed decision is 0.054, so no trimming is needed.
+
+The outcome bounds $K_{1h},K_{2h}$ are set to the smallest and largest realised $h$-month change in each outcome
+over August 1989 -- December 2010, a period that includes the 2001 and 2008--09 recessions. The assumption is that
+the potential outcomes of any single meeting stay within the range the economy actually went through over these
+two decades. The 2020 version calibrated $K$ to the interquartile range of the estimated effects across horizons;
+calibrating it to the range of the outcome itself matches Assumption~\ref{as:bounded} and gives considerably wider
+bounds.
+
+\subsection{Inference}
+
+The estimators are smooth functions of sample moments and of the probit estimates, but the observations are
+serially dependent and the outcomes of nearby meetings overlap. I use a moving-block bootstrap over meetings
+\citep{kunsch1989} with blocks of eight consecutive meetings (about one year) and $B=499$ draws. Each draw
+re-estimates the propensity score, the menu shares and the conditional means, so first-stage uncertainty is
+propagated. The 2020 version left inference for future work because the conditional effects are computed on
+non-consecutive subsamples; resampling the full sequence of meetings and recomputing everything in each draw
+addresses that concern.
+
+For $\theta_d^{\cA}$ I report the basic bootstrap 90\% interval. For the partially identified $\theta_d$ I report the
+\citet{imbens2004} interval, which covers the true parameter (rather than the whole identified set) with
+probability 0.9 and remains valid when the identified set is narrow:
+\[
+\Bigl[\hat L_d-c_\alpha\,\hat\sigma_L,\ \hat U_d+c_\alpha\,\hat\sigma_U\Bigr],\qquad
+\Phi\!\Bigl(c_\alpha+\tfrac{\hat U_d-\hat L_d}{\max(\hat\sigma_L,\hat\sigma_U)}\Bigr)-\Phi(-c_\alpha)=0.9,
+\]
+with $\hat\sigma_L,\hat\sigma_U$ the bootstrap standard errors. The support bounds $K$ are treated as known.

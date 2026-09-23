@@ -1,0 +1,118 @@
+\section{Framework: Policy Evaluation When Overlap Fails by Design}\label{sec:framework}
+
+\subsection{Treatment, menus and potential outcomes}
+
+Index scheduled FOMC meetings by $t$. The policy decision is $D_t\in\cD=\{-1,0,1\}$ (ease, leave unchanged,
+tighten the federal funds rate target). The Bluebook menu is $X_t\in\cX$, a non-empty subset of $\cD$; in the data
+$\cX=\{\{-1\},\{0\},\{1\},\{-1,0\},\{0,1\},\{-1,0,1\}\}$. Other information available to the Committee (lagged
+macroeconomic data, market expectations, staff forecasts) is collected in $Z_t\in\mathbb{R}^k$, and
+$W_t=(X_t,Z_t)$.
+
+For an outcome series $y$ (log industrial production, the unemployment rate, the log PCE price index), let
+$Y_{t,h}=y_{t+h}-y_t$ be its cumulative change over the $h$ months following the meeting. Each decision $d$
+induces a potential outcome $Y_{t,h}(d)$, and $Y_{t,h}=\sum_{d\in\cD}\1\{D_t=d\}\,Y_{t,h}(d)$. The parameter of
+interest is the average dynamic effect of an increase ($d=1$) or a decrease ($d=-1$) relative to leaving the target
+unchanged,
+\begin{equation}\label{eq:theta}
+  \theta_d(h)=\E\bigl[Y_{t,h}(d)-Y_{t,h}(0)\bigr],\qquad d\in\{-1,1\},\ h=1,\dots,24 .
+\end{equation}
+Expectations are taken over the stationary distribution of meetings. I drop the $t$ and $h$ subscripts when they
+are not needed. The propensity score is $p_d(w)=\Prob(D=d\mid W=w)$.
+
+\subsection{Assumptions}
+
+\begin{assumption}[Selection on observables]\label{as:unconf}
+$Y_{h}(d)\indep D\mid W$ for all $d\in\cD$ and all $h$.
+\end{assumption}
+
+\begin{assumption}[Menu overlap]\label{as:menu}
+For all $w=(x,z)$ in the support of $W$: $p_d(x,z)>0$ if and only if $d\in x$.
+\end{assumption}
+
+\begin{assumption}[Bounded outcomes]\label{as:bounded}
+$Y_{h}(d)\in[K_{1h},K_{2h}]$ almost surely, for all $d$ and $h$, with known $K_{1h}<K_{2h}$.
+\end{assumption}
+
+Assumption~\ref{as:unconf} is the identifying assumption of \citet{angrist2018}. It says that once we condition
+on what the Committee knew, including what it was offered, the remaining variation in its decision is as good as
+random with respect to the economy's future path. Assumption~\ref{as:menu} replaces the usual overlap condition,
+$p_d(w)>0$ for all $d$ and $w$. It allows the propensity score to be zero, but only in the way the Bluebook
+dictates: the Committee does not take an action that is not on the menu (which holds without exception in the
+data, Table~\ref{tab:menus}), and any action on the menu has some chance of being taken. The ``only if'' part is
+testable and holds. The ``if'' part is an assumption. Assumption~\ref{as:bounded} is a support restriction of
+the kind used by \citet{manski1990}. It bites only on the cells in which the data are silent.
+
+\subsection{What the data identify}
+
+Write $\pi_x=\Prob(X=x)$ and $\mu_d(x)=\E[Y(d)\mid X=x]$. Conditioning on the menu,
+\begin{equation}\label{eq:decomp}
+  \theta_d=\sum_{x\in\cX}\pi_x\,\bigl(\mu_d(x)-\mu_0(x)\bigr).
+\end{equation}
+Under Assumptions~\ref{as:unconf}--\ref{as:menu}, for any $a\in x$ the conditional mean $\mu_a(x)$ is identified by
+inverse probability weighting within the menu:
+\begin{equation}\label{eq:ipw}
+  \mu_a(x)=\E\!\left[\frac{\1\{D=a\}\,Y}{p_a(X,Z)}\ \middle|\ X=x\right],\qquad a\in x,
+\end{equation}
+because $p_a(x,Z)>0$ for every $Z$ when $a\in x$. When $a\notin x$, the data never show $Y(a)$ in menu $x$ and
+$\mu_a(x)$ is not identified. For a given $d$, partition the menus into four groups:
+\begin{align*}
+\cA_d&=\{x:\,d\in x,\,0\in x\}, & \cB_d&=\{x:\,0\in x,\,d\notin x\},\\
+\cC_d&=\{x:\,d\in x,\,0\notin x\}, & \cN_d&=\{x:\,d\notin x,\,0\notin x\}.
+\end{align*}
+For $d=1$ these are $\cA_1=\{\{0,1\},\{-1,0,1\}\}$, $\cB_1=\{\{0\},\{-1,0\}\}$, $\cC_1=\{\{1\}\}$ and
+$\cN_1=\{\{-1\}\}$. The overlap region $\cA_d$ is where the effect is point-identified. In $\cB_d$ the status-quo mean
+is identified but the treated mean is not; in $\cC_d$ the reverse; in $\cN_d$ neither.
+
+\begin{proposition}[Sharp identified set]\label{prop:bounds}
+Under Assumptions~\ref{as:unconf}--\ref{as:bounded}, the identified set for $\theta_d(h)$ is the interval
+$[L_d,U_d]$ with
+\begin{align*}
+L_d&=\sum_{x\in\cA_d}\pi_x\bigl(\mu_d(x)-\mu_0(x)\bigr)+\sum_{x\in\cB_d}\pi_x\bigl(K_1-\mu_0(x)\bigr)\\
+&\qquad+\sum_{x\in\cC_d}\pi_x\bigl(\mu_d(x)-K_2\bigr)+\sum_{x\in\cN_d}\pi_x\,(K_1-K_2),\\
+U_d&=\sum_{x\in\cA_d}\pi_x\bigl(\mu_d(x)-\mu_0(x)\bigr)+\sum_{x\in\cB_d}\pi_x\bigl(K_2-\mu_0(x)\bigr)\\
+&\qquad+\sum_{x\in\cC_d}\pi_x\bigl(\mu_d(x)-K_1\bigr)+\sum_{x\in\cN_d}\pi_x\,(K_2-K_1).
+\end{align*}
+Its width is $U_d-L_d=(K_2-K_1)\bigl[\pi(\cB_d)+\pi(\cC_d)+2\,\pi(\cN_d)\bigr]$.
+\end{proposition}
+
+The proof is in Appendix~\ref{app:proofs}. The width is always below the width of the no-information bound,
+$2(K_2-K_1)$, so the set is informative whenever some menu contains both $d$ and $0$ or one of them. It is also
+narrower than the naive bound that treats every cell outside $\cA_d$ as uninformative, whose width is
+$2(K_2-K_1)\bigl[1-\pi(\cA_d)\bigr]$, because the identified half of each one-sided cell is used. The 2020
+version of this thesis used the naive width.
+
+\begin{remark}[Additional covariates]
+Conditioning on $Z$ in \eqref{eq:ipw} is needed for Assumption~\ref{as:unconf}, but the bounds only require the
+menu-level means. If $X$ happens to contain all the information in $Z$ that predicts $D$, the propensity score
+does not depend on $Z$ and \eqref{eq:ipw} reduces to a difference in means within menu; nothing in
+Proposition~\ref{prop:bounds} changes (Appendix~\ref{app:proofs}).
+\end{remark}
+
+\subsection{A sensitivity parameter for the missing menus}
+
+The worst case in Proposition~\ref{prop:bounds} lets the average effect in menus outside the overlap region be as
+extreme as the outcome's support permits. A more useful statement bounds how different those effects can be from
+the identified effect in the overlap region,
+\[
+\theta_d^{\cA}=\E\bigl[Y(d)-Y(0)\mid X\in\cA_d\bigr]=\frac{\sum_{x\in\cA_d}\pi_x\bigl(\mu_d(x)-\mu_0(x)\bigr)}{\pi(\cA_d)}.
+\]
+
+\begin{assumption}[$\lambda$-bounded heterogeneity]\label{as:lambda}
+For some $\lambda\ge0$ and all $x\notin\cA_d$: $\bigl|\E[Y(d)-Y(0)\mid X=x]-\theta_d^{\cA}\bigr|\le\lambda$.
+\end{assumption}
+
+\begin{proposition}\label{prop:lambda}
+Under Assumptions~\ref{as:unconf}--\ref{as:lambda} the identified set is obtained from Proposition~\ref{prop:bounds}
+by intersecting, for each $x\notin\cA_d$, the cell-level interval with $[\theta^{\cA}_d-\lambda,\theta^{\cA}_d+\lambda]$.
+When the support constraint does not bind this is
+\[
+\Theta_d(\lambda)=\Bigl[\theta_d^{\cA}-\lambda\bigl(1-\pi(\cA_d)\bigr),\ \theta_d^{\cA}+\lambda\bigl(1-\pi(\cA_d)\bigr)\Bigr],
+\]
+and the sign of $\theta_d$ is identified if and only if $\lambda<\lambda^\ast_d=|\theta_d^{\cA}|/\bigl(1-\pi(\cA_d)\bigr)$.
+\end{proposition}
+
+At $\lambda=0$ effects are homogeneous across menus and $\theta_d=\theta_d^{\cA}$; as $\lambda$ grows the set
+widens until it reaches the worst case. The \emph{breakdown value} $\lambda^\ast_d$ is the smallest degree of
+heterogeneity across menus that would overturn the sign of the estimated effect, measured in the units of the
+outcome. It gives a transparent way to judge how much the conclusion depends on extrapolating from the overlap
+region.

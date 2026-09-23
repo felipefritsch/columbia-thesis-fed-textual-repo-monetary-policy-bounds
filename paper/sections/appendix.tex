@@ -1,0 +1,70 @@
+\section{Proofs}\label{app:proofs}
+
+\paragraph{Proof of Proposition~\ref{prop:bounds}.}
+By the law of iterated expectations, $\theta_d=\sum_x\pi_x(\mu_d(x)-\mu_0(x))$, and $\pi_x$ is identified.
+
+\emph{Identification of $\mu_a(x)$ for $a\in x$.} By Assumption~\ref{as:menu}, $p_a(x,z)>0$ for all $z$ in the
+support of $Z\mid X=x$. By Assumption~\ref{as:unconf},
+$\E[\1\{D=a\}Y\mid X=x,Z]=\E[\1\{D=a\}Y(a)\mid X=x,Z]=p_a(x,Z)\,\E[Y(a)\mid X=x,Z]$. Dividing by $p_a(x,Z)$ and
+integrating over $Z\mid X=x$ gives \eqref{eq:ipw}.
+
+\emph{Non-identification of $\mu_a(x)$ for $a\notin x$.} By Assumption~\ref{as:menu}, $\Prob(D=a\mid X=x)=0$, so
+the distribution of observables $(Y,D,X,Z)$ places no restriction on the conditional distribution of $Y(a)$ given
+$X=x$ beyond Assumption~\ref{as:bounded}. In particular, for any $m\in[K_1,K_2]$ the joint distribution
+obtained by setting $Y(a)=m$ almost surely on $\{X=x\}$ generates the same observables, satisfies
+Assumption~\ref{as:unconf} (a constant is independent of $D$), and has $\mu_a(x)=m$. Hence the identified set for
+$\mu_a(x)$ is exactly $[K_1,K_2]$.
+
+\emph{Sharpness of the sum.} The unidentified means $\{\mu_a(x): a\notin x\}$ enter $\theta_d$ linearly with
+coefficients $\pm\pi_x$, and each can be set independently to either endpoint by the construction above, applied
+menu by menu. The minimum of $\theta_d$ sets $\mu_d(x)=K_1$ for $x\in\cB_d\cup\cN_d$ and $\mu_0(x)=K_2$ for
+$x\in\cC_d\cup\cN_d$; the maximum does the reverse. This gives $L_d$ and $U_d$. Every intermediate value is attained
+by convex combination, so the identified set is the interval $[L_d,U_d]$. Subtracting yields the width. \qed
+
+\paragraph{Proof of Proposition~\ref{prop:lambda}.}
+Assumption~\ref{as:lambda} adds, for each $x\notin\cA_d$, the constraint
+$\mu_d(x)-\mu_0(x)\in[\theta^{\cA}_d-\lambda,\theta^{\cA}_d+\lambda]$, where $\theta^{\cA}_d$ is identified. Intersecting with
+the cell-level intervals of Proposition~\ref{prop:bounds} and summing gives the set. If no support constraint
+binds, each cell contributes $\pi_x(\theta^{\cA}_d\pm\lambda)$, so the bounds are
+$\pi(\cA_d)\theta^{\cA}_d+(1-\pi(\cA_d))(\theta^{\cA}_d\pm\lambda)=\theta^{\cA}_d\pm\lambda(1-\pi(\cA_d))$, which excludes zero iff
+$\lambda<|\theta^{\cA}_d|/(1-\pi(\cA_d))$. \qed
+
+\paragraph{Information in $X$ versus $Z$.}
+If the menu contains all the information in $Z$ that predicts $D$, i.e.\ $p_a(x,z)=p_a(x)$, then
+\eqref{eq:ipw} becomes $\mu_a(x)=\E[Y\mid D=a,X=x]$, a difference in means within menu, and conditioning on $Z$ is
+harmless. In general
+$\E[Y(a)\mid X=x]=\int\E[Y(a)\mid X=x,Z=z]\,dF_{Z\mid X=x}(z)$: the integral is over the distribution of $Z$
+\emph{conditional on the menu}. The 2020 version integrated over the marginal distribution of $Z$, which is
+incorrect when $X$ and $Z$ are dependent, as they are here.
+
+\section{Robustness: macro information set}\label{app:robust}
+
+Table~\ref{tab:results_alt} and Figure~\ref{fig:responses_alt} repeat the main results with the macro information
+set of \citet{angrist2018} (column (3) of Table~\ref{tab:pscore}) in place of the Greenbook forecasts.
+
+\begin{table}[p]
+  \centering
+  \caption{Effects of rate changes, macro information set}\label{tab:results_alt}
+  \footnotesize
+  \tablefile{results_alt.tex}
+  \par\medskip
+  \begin{minipage}{0.85\linewidth}\footnotesize
+  \emph{Notes:} As Table~\ref{tab:results}, with the propensity score of Table~\ref{tab:pscore}, column (3).
+  \end{minipage}
+\end{table}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=0.92\linewidth]{responses_alt.pdf}
+  \caption{Cumulative effects of rate changes, macro information set. See Figure~\ref{fig:responses}.}\label{fig:responses_alt}
+\end{figure}
+
+\section{Comparison with the 2020 version}\label{app:revision}
+
+The revision changes the estimation in several ways, described in the main text: the propensity score now imposes
+the menu's zeros and uses covariates observed at the time of the meeting (Section~\ref{sec:estimation}); the bounds
+use the identified half of one-sided menus (Section~\ref{sec:framework}); the outcome bounds $K$ are calibrated to
+the range of the outcome rather than to the spread of the estimates; cumulative effects are bounded directly; and
+inference is reported. The 2020 estimation also applied a scaling step to the point-identified component of some
+bounds that is not part of the estimator derived in Section~\ref{sec:framework}; the revision drops it. Most of the
+difference in the real-activity results between the two versions comes from this step.

@@ -1,0 +1,88 @@
+\section{Results}\label{sec:results}
+
+Figure~\ref{fig:responses} and Table~\ref{tab:results} report, for each outcome and each policy, three objects:
+the worst-case identified set of Proposition~\ref{prop:bounds} (grey), the effect on the overlap region
+$\hat\theta^{\cA}_d$ with its 90\% bootstrap interval (blue), and the breakdown value $\lambda^\ast_d$ of
+Proposition~\ref{prop:lambda}. Responses are cumulative changes from the month of the meeting: percent for
+industrial production and the PCE price index, percentage points for the unemployment rate. The overlap region
+covers 67\% of meetings for a rate increase (menus $\{U,T\}$ and $\{U,T,E\}$) and 59\% for a decrease ($\{U,E\}$ and
+$\{U,T,E\}$). The main specification uses the Greenbook propensity score.
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.92\linewidth]{responses_main.pdf}
+  \caption{Cumulative effects of a rate increase (left) and decrease (right) relative to no change. Grey: worst-case
+  identified set (Proposition~\ref{prop:bounds}). Blue: effect on the overlap region $\hat\theta^{\cA}_d$ with 90\%
+  moving-block bootstrap interval. Greenbook propensity score; 133 meetings, 1989--2006.}\label{fig:responses}
+\end{figure}
+
+\paragraph{Worst-case bounds are not informative.} With $K$ equal to the range of outcomes the economy actually
+experienced, every identified set contains zero at every horizon, and so does every \citet{imbens2004} interval.
+Two years after a rate increase, the identified set for industrial production runs from $-7.2\%$ to $+4.3\%$. The
+menus that exclude the action or the status quo account for a third or more of all meetings, and without an
+assumption about them the data cannot sign the average effect. The 2020 version reported much narrower bounds
+because it calibrated $K$ differently (Appendix~\ref{app:revision}).
+
+\paragraph{The overlap-region effects have the wrong sign for real activity.} Where both the action and the status
+quo were on the menu, the effects are point-identified and estimated with some precision. After a rate
+\emph{increase}, industrial production is higher than under no change (by 1.5\% at six months and 1.9\% at twelve,
+with 90\% intervals excluding zero through 18 months) and unemployment is lower (by 0.6 percentage points at twelve
+months). After a rate \emph{decrease}, industrial production is lower by 1.4\% at twelve months and 2.2\% at
+twenty-four, and unemployment is higher by 0.65 and 1.1 points. These are the opposite of the responses implied by
+standard theory and found by most of the literature, and they are the same in the macro specification
+(Appendix~\ref{app:robust}).
+
+\paragraph{Staff forecasts remove the price puzzle.} The price responses behave differently. With the macro
+information set, a rate increase is followed by significantly \emph{higher} prices from five months on, which is the
+well-known price puzzle \citep{sims1992}. Conditioning on the Greenbook forecasts makes the price response to a rate increase
+small and statistically indistinguishable from zero at every horizon (0.20\% at twelve months, interval
+$[-0.07,0.39]$). This is the pattern \citet{romer2004} report: the puzzle reflects the Committee's reaction to
+inflation it foresees, and the staff forecast captures that information. A rate decrease is followed by higher
+prices under both specifications (0.8--1.0\% at twelve months), the direction theory predicts.
+
+\begin{table}[!htbp]
+  \centering
+  \caption{Effects of rate changes relative to no change, Greenbook information set}\label{tab:results}
+  \footnotesize
+  \tablefile{results_main.tex}
+  \par\medskip
+  \begin{minipage}{0.86\linewidth}\footnotesize
+  \emph{Notes:} Cumulative change $h$ months after the meeting. $\hat\theta_A$: effect on meetings whose menu contains
+  both the action and no change, with basic moving-block bootstrap 90\% interval (499 draws, blocks of 8 meetings).
+  Identified set: worst-case bounds on the average effect over all meetings (Proposition~\ref{prop:bounds}).
+  $\lambda^\ast$: smallest heterogeneity between the non-overlap menus and the overlap region, in the outcome's
+  units, that would make the sign of the average effect unidentified (Proposition~\ref{prop:lambda}).
+  \end{minipage}
+\end{table}
+
+\paragraph{How much extrapolation is needed?} If effects were the same in every menu ($\lambda=0$), the
+overlap-region estimates would be the average effects. The breakdown values in Table~\ref{tab:results} say how far
+that homogeneity can be relaxed before the sign of the average effect is lost. For a rate increase, a third of the
+meetings are outside the overlap region, so $\lambda^\ast=3\,|\hat\theta^{\cA}|$: the twelve-month IP response keeps its
+sign unless the average effect in the menus without the status quo or without tightening differs from the
+overlap-region effect by more than 5.7 percentage points. For a rate decrease two fifths of meetings lie outside the
+region and $\lambda^\ast\approx2.4\,|\hat\theta^{\cA}|$. Figure~\ref{fig:sensitivity} traces the full set as a
+function of $\lambda$. Reconciling the average effects with the textbook signs would require the effect in the
+non-overlap menus to be not merely different from, but several times larger than and opposite in sign to, the effect
+in the overlap region. That cannot be ruled out, but it would be an odd defence: the counter-theoretical signs come
+from the meetings where the data are most informative, not from extrapolation.
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.86\linewidth]{sensitivity_main.pdf}
+  \caption{Identified set for the twelve-month effect as a function of $\lambda$, the maximal difference between
+  the average effect in a non-overlap menu and in the overlap region (Assumption~\ref{as:lambda}). At $\lambda=0$ the set is
+  the point $\hat\theta^{\cA}_d$; for large $\lambda$ it reaches the worst case. Greenbook propensity score.}\label{fig:sensitivity}
+\end{figure}
+
+\paragraph{Interpretation.} The overlap-region estimates are credible only under Assumption~\ref{as:unconf}.
+Their signs indicate that it fails. The Committee tightens when it expects the economy to strengthen, and
+the expected strength shows up in subsequent output whether or not the Committee acts. Neither lagged data, market
+expectations nor the Greenbook forecasts absorb this completely. Two features of the sample make the problem
+hard to escape. First, the identifying variation is thin: all but one of the 27 tightenings come from $\{U,T\}$
+menus, so the effect of a rate increase is essentially a comparison of hikes and holds within those 43 meetings.
+Second, weighting within a menu only reweights meetings the Committee itself judged similar enough to offer the
+same options, so the remaining differences between hikes and holds are exactly the judgemental information that
+is hardest to measure. Asymmetries between increases and decreases, which the 2020 version emphasised following
+\citet{hamilton2002} and \citet{angrist2011}, cannot be separated from this selection problem with the present
+data.
