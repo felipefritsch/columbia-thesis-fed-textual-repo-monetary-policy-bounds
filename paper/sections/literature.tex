@@ -1,0 +1,80 @@
+\section{Related Literature}\label{sec:literature}
+
+This thesis sits where four literatures meet: the potential-outcomes approach to dynamic causal effects in
+macroeconomics, the identification of monetary policy shocks, the use of the Federal Reserve's text as data, and
+the econometrics of weighting estimators when overlap is limited or fails. Each has moved substantially since the
+first version of this thesis was written in 2020.
+
+\subsection{Dynamic causal effects and potential outcomes}
+
+\citet{angrist2011} and \citet{angrist2018} recast the effect of monetary policy as a policy-evaluation problem:
+each FOMC decision is a treatment, a propensity score for the Committee's choice is estimated by ordered probit,
+and impulse responses are inverse-probability-weighted averages of future outcomes. Their approach is robust to
+nonlinearity and asymmetry, and it requires selection on observables and overlap. \citet{rambachan2025} give the
+general framework: a ``direct potential outcome system'' in which impulse responses and local projections have a
+nonparametric causal interpretation under conditions they make precise. This thesis adopts their notation for
+potential outcomes indexed by the policy action and the horizon.
+
+A closely related line asks what the standard linear tools estimate when the world is not linear.
+\citet{plagborg2021} show that local projections and VARs estimate the same population impulse responses, so the
+choice between them is about finite-sample bias and variance, not about the estimand. \citet{kolesar2025} show that
+VARs and linear local projections on an observed shock or proxy identify \emph{weighted averages} of causal effects
+however nonlinear the data-generating process, whereas methods that rely on heteroskedasticity or non-Gaussianity
+for identification can fail. The IPW estimator used here targets an unweighted average effect of a discrete policy
+action instead. The price is that it needs a correctly specified propensity score and, as this thesis emphasises,
+overlap. \citet{montielolea2021} show that lag-augmented local projections give valid inference even with persistent
+data and at long horizons. Their result is a useful benchmark for the inference problem this thesis faces, in which
+outcomes at nearby meetings overlap in time.
+
+\subsection{Identifying monetary policy shocks and the Federal Reserve's information}
+
+The central difficulty in estimating the effect of monetary policy is that the Federal Reserve reacts to what it
+expects the economy to do. \citet{romer2004} addressed this by purging the intended funds-rate change of its
+response to the Greenbook forecasts. \citet{romer2023} revisit thirty-five years of narrative evidence and argue
+that carefully identified shocks have large effects on output, unemployment and inflation in the expected
+directions. High-frequency identification uses the change in market rates in a narrow window around FOMC
+announcements instead. \citet{nakamura2018} argue that such surprises also reveal the Fed's private information
+about the economy (an ``information effect''), and \citet{jarocinski2020} and \citet{mirandaagrippino2021}
+separate pure policy shocks from information shocks using the joint response of stock prices or private forecasts.
+\citet{bauer2023aer,bauer2023nber} offer an alternative account: much of the apparent information effect reflects
+the Fed responding to economic news that markets had not yet priced, which makes raw surprises predictable and
+calls for orthogonalising them with respect to prior news.
+
+Most closely related to this thesis, \citet{aruoba2025} use natural language processing on the staff documents
+prepared before each FOMC meeting to measure the Committee's information set. They find that the text contains
+information about the economy that the Greenbook's numerical forecasts do not, and that shocks identified as
+residuals from a model that uses it produce responses consistent with standard theory. Their conclusion speaks
+directly to the empirical results of Section~\ref{sec:results}: conditioning on numerical forecasts alone may leave
+enough of the Fed's information out of the propensity score to bias selection-on-observables estimates.
+
+\subsection{The Federal Reserve's text as data}
+
+\citet{hansen2018} brought computational linguistics to the FOMC transcripts, and the use of the Fed's internal
+documents has since grown quickly. \citet{ke2022} develop robust topic-model estimators and apply them to the
+transcripts of the Greenspan era, the period studied here. Two recent papers use the Bluebook alternatives
+themselves. \citet{doh2026} fine-tune a language model on the alternative policy statements drafted by Board staff
+to measure where the adopted statement sits on the dovish--hawkish spectrum, and \citet{laarits2025} use the
+alternatives circulated before each meeting to study how the Committee aggregates members' differing economic
+models. This thesis uses the same documents for a different purpose: not to measure the tone of communication, but
+to recover the set of actions the Committee considered, which determines where the propensity score is zero.
+
+\subsection{Overlap, weighting and partial identification}
+
+When propensity scores approach zero, IPW estimators become unstable and standard inference can fail.
+\citet{khan2010} show that identification is then irregular and convergence slower than $\sqrt{n}$;
+\citet{crump2009} propose trimming to a subpopulation with good overlap; \citet{ma2020} and \citet{heiler2021}
+develop inference that remains valid with small or many extreme scores; and \citet{damour2021} show that strict
+overlap becomes restrictive when there are many covariates. All of these treat limited overlap as a feature of the
+estimated score. The distinguishing feature of the present setting is that overlap fails \emph{exactly}, and the
+region where it fails is recorded in the data.
+
+For that case, partial identification is the natural tool. Worst-case bounds under a support restriction go back to
+\citet{manski1990,manski2003}, and \citet{imbens2004} give confidence intervals for the partially identified
+parameter. \citet{susmann2025} develop bounds on the average treatment effect in the cross-sectional setting when
+outcome overlap fails for a subpopulation, with width equal to the outcome range times the probability of that
+subpopulation, and propose efficient estimators and uniformly valid inference. Proposition~\ref{prop:bounds}
+is the analogue for a multi-valued treatment in a time series, where the non-overlap region is observed rather than
+estimated and some menus contain only one of the two actions being compared. Finally, a large literature relaxes
+unconfoundedness itself; \citet{masten2018} bound treatment effects when selection on unobservables is limited by a
+sensitivity parameter, an approach that complements the $\lambda$-relaxation of Section~\ref{sec:framework}, which
+relaxes effect homogeneity across menus instead.

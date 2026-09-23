@@ -20,7 +20,17 @@ The 2020 estimation applied a scaling step to the point-identified part of some 
 depending on outcome and policy). It is not part of the estimator, so the revision drops it; it accounts for most
 of the difference in the real-activity results between the two versions.
 
-## 2. Text corrections
+## 2. New material
+
+* **Related literature (Section 2):** an updated review covering dynamic causal effects and potential outcomes
+  (Rambachan–Shephard; Kolesár–Plagborg-Møller; Plagborg-Møller–Wolf; Montiel Olea–Plagborg-Møller), monetary shock
+  identification and the Fed's information (Romer–Romer 2023; Nakamura–Steinsson; Jarociński–Karadi;
+  Miranda-Agrippino–Ricco; Bauer–Swanson; Aruoba–Drechsel), FOMC text as data including recent uses of the Bluebook
+  alternatives (Doh–Song–Yang; Laarits et al.), and overlap and partial identification (Heiler–Kazak;
+  Susmann–McClean–Díaz; Masten–Poirier).
+* **Discussion (Section 7):** what that literature implies for the results and for next steps.
+
+## 3. Text corrections
 
 * θ is written E[Y(d) − Y(d)] in three places; it should be E[Y(d) − Y(0)].
 * The bound in eq. (8) sums over d ∈ 𝒟; it should sum over menus x with {d, 0} ⊂ x.
@@ -30,13 +40,13 @@ of the difference in the real-activity results between the two versions.
 * Minor: "+0.50bp" → 50 bp; footnote 8 dates; Romer & Romer year (2004); Table 1 menu counts and Table 2 sample
   size now match the data used; §4.1 described residualised weights where the code residualised outcomes.
 
-## 3. Repository
+## 4. Repository
 
 The old folder mixed Python notebooks (exploration, Figures 1–2) and Stata (all results) with menu dummies pasted
 into a copy of the AJK spreadsheet, duplicate data files and do-files, absolute paths, and results saved in several
 formats. The revised repo has one pipeline from `data/raw/` to every table and figure in the paper.
 
-## 4. What carries over
+## 5. What carries over
 
 The core idea is unchanged and holds up well: the observed decision is **always** inside the Bluebook menu
 (133/133 meetings), and imposing that in the choice model raises the log-likelihood from −91.4 to −72.6 with no
