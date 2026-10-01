@@ -31,13 +31,11 @@ of the difference in the real-activity results between the two versions.
 
 ## 3. Text corrections
 
-* θ is written E[Y(d) − Y(d)] in three places; it should be E[Y(d) − Y(0)].
-* The bound in eq. (8) sums over d ∈ 𝒟; it should sum over menus x with {d, 0} ⊂ x.
-* References to equations (5)–(8) point to unnumbered equations.
-* Appendix A.2 integrates against P(Z = z); it should be P(Z = z | X = x).
-* "Price puzzle" refers to inflation *rising* after a tightening.
+* References to equations (5)–(8) point to unnumbered equations, likely a revision/latex formatting error.
+* Appendix A.2 integrates against P(Z = z); it should be P(Z = z | X = x) -> implication and calculation that followed were correct, just lacked the conditional definition on integral 
+* "Price puzzle" definition and discussion.
 * Minor: "+0.50bp" → 50 bp; footnote 8 dates; Romer & Romer year (2004); Table 1 menu counts and Table 2 sample
-  size now match the data used; §4.1 described residualised weights where the code residualised outcomes.
+  size now match the data used; §4.1 described residualised weights vs outcomes.
 
 ## 4. Repository
 
