@@ -11,8 +11,9 @@ average effect of a rate increase/decrease, a sensitivity analysis in the hetero
 block-bootstrap / Imbens–Manski inference.
 
 > **About the 2020 version.** The revised edition rebuilds the estimation from the raw data: a menu-constrained
-> propensity score, sharper bounds, outcome bounds calibrated to the data, no post-estimation scaling step, and
-> bootstrap inference. Several conclusions change. See [`docs/REVISION_NOTES.md`](docs/REVISION_NOTES.md) and Appendix C of the paper.
+> propensity score, sharper bounds based on menu-behavior identification, outcome bounds calibrated to the data, and
+> bootstrap inference (which had been left as an extension).
+> Several conclusions change. See [`docs/REVISION_NOTES.md`](docs/REVISION_NOTES.md) and Appendix C of the paper.
 
 ## Reproduce
 
