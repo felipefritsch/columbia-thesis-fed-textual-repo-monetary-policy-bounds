@@ -10,7 +10,6 @@ What changed between the thesis submitted in May 2020 and the revised edition, a
 | Covariates | Lagged inflation/unemployment, FFF surprise, contemporaneous IP level, month dummies; all 197 months | Same macro set with lagged IP growth; plus a Greenbook-forecast specification; 133 meeting months |
 | Bounds | Width 2(K₂−K₁) on every menu outside the overlap region | Sharp: menus with only one of {d, 0} contribute (K₂−K₁) |
 | Outcome bounds K | Interquartile range of the estimated effects across horizons | Range of the realised outcome, 1989–2010 |
-| Cumulative effects | Sum of per-horizon bounds | Cumulative outcome bounded directly |
 | Point estimates | A scaling step (scalar `adj`) applied to some point-identified components | No post-estimation scaling |
 | Inference | Left for future work | Moving-block bootstrap; Imbens–Manski intervals |
 
